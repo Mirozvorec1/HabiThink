@@ -3,73 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HabiThink — Сложная игра, которая расслабляет</title>
-    <style>
-        /* Стили перенесены в styles.css */
-    </style>
+    <title>HabiThink - Главная</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>HabiThink</h1>
-            <p>Сложная игра. Если научиться в неё играть — расслабляет.</p>
+            <p class="subtitle">Сложная игра. Если научиться в неё играть — расслабляет.</p>
         </header>
 
-        <main class="cards-grid">
+        <main class="grid">
             <a href="math.html" class="card">
-                <span class="card-icon">∑</span>
+                <div class="card-icon">∑</div>
                 <h2>Математика</h2>
-                <p>От арифметики до математического анализа</p>
+                <p class="card-desc">Поток вычислений. Разгоните мозг до состояния дзен.</p>
                 <div class="card-stats">
-                    <span class="stat"><span class="stat-value">200+</span> задач</span>
-                    <span class="stat"><span class="stat-value">6</span> уровней</span>
+                    <span>Бесконечный режим</span>
                 </div>
             </a>
 
-            <article class="card">
-                <span class="card-icon">🧩</span>
+            <div class="card disabled">
+                <div class="card-icon">⚡</div>
+                <h2>Алгоритмы</h2>
+                <p class="card-desc">Логические цепочки и паттерны.</p>
+                <div class="card-stats">
+                    <span>Скоро</span>
+                </div>
+            </div>
+
+            <div class="card disabled">
+                <div class="card-icon">∞</div>
                 <h2>Логика</h2>
-                <p>Головоломки и дедуктивные задачи</p>
+                <p class="card-desc">Умение видеть суть за шумом.</p>
                 <div class="card-stats">
-                    <span class="stat"><span class="stat-value">100+</span> задач</span>
-                    <span class="stat"><span class="stat-value">4</span> уровня</span>
+                    <span>Скоро</span>
                 </div>
-            </article>
+            </div>
 
-            <article class="card">
-                <span class="card-icon">🧠</span>
-                <h2>Память</h2>
-                <p>Упражнения на запоминание и мнемотехнику</p>
-                <div class="card-stats">
-                    <span class="stat"><span class="stat-value">80+</span> упражнений</span>
-                    <span class="stat"><span class="stat-value">5</span> уровней</span>
-                </div>
-            </article>
-
-            <article class="card">
-                <span class="card-icon">👁️</span>
+            <div class="card disabled">
+                <div class="card-icon">👁</div>
                 <h2>Внимание</h2>
-                <p>Тренировка концентрации и фокусировки</p>
+                <p class="card-desc">Фокусировка на главном в потоке данных.</p>
                 <div class="card-stats">
-                    <span class="stat"><span class="stat-value">90+</span> упражнений</span>
-                    <span class="stat"><span class="stat-value">4</span> уровня</span>
+                    <span>Скоро</span>
                 </div>
-            </article>
+            </div>
 
-            <article class="card">
-                <span class="card-icon">💡</span>
-                <h2>Креативность</h2>
-                <p>Нестандартные задачи на творческое мышление</p>
+            <div class="card disabled">
+                <div class="card-icon">🧠</div>
+                <h2>Память</h2>
+                <p class="card-desc">Тренировка кратковременного хранилища.</p>
                 <div class="card-stats">
-                    <span class="stat"><span class="stat-value">120+</span> задач</span>
-                    <span class="stat"><span class="stat-value">5</span> уровней</span>
+                    <span>Скоро</span>
                 </div>
-            </article>
+            </div>
+
+            <div class="card disabled">
+                <div class="card-icon">💡</div>
+                <h2>Креативность</h2>
+                <p class="card-desc">Нестандартные связи между понятиями.</p>
+                <div class="card-stats">
+                    <span>Скоро</span>
+                </div>
+            </div>
         </main>
 
         <footer>
-            <p>© 2024 HabiThink</p>
+            <p>&copy; 2023 HabiThink. Практика ума.</p>
         </footer>
     </div>
 </body>
