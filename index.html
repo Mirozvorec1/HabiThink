@@ -12,152 +12,111 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 60px 20px;
         }
 
         header {
             text-align: center;
-            color: white;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
         header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
+            font-size: 1rem;
+            color: #666;
+            max-width: 500px;
             margin: 0 auto;
-            line-height: 1.6;
         }
 
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 20px 0;
+            gap: 20px;
         }
 
         .card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            transition: all 0.3s ease;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            padding: 32px 28px;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: border-color 0.15s ease;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
+            border-color: #1a1a1a;
         }
 
         .card-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
             display: block;
         }
 
         .card h2 {
-            color: #333;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #1a1a1a;
         }
 
         .card p {
             color: #666;
-            line-height: 1.6;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .card-stats {
             margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            gap: 24px;
         }
 
         .stat {
-            text-align: center;
+            font-size: 0.85rem;
+            color: #888;
         }
 
         .stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: #999;
-            margin-top: 5px;
-        }
-
-        .card-btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .card-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            font-weight: 500;
+            color: #1a1a1a;
         }
 
         footer {
             text-align: center;
-            color: white;
             margin-top: 60px;
-            opacity: 0.8;
-            font-size: 0.9rem;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e5;
+            color: #999;
+            font-size: 0.85rem;
         }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
+            .container {
+                padding: 40px 20px;
             }
-            
+
+            header h1 {
+                font-size: 1.75rem;
+            }
+
             .cards-grid {
                 grid-template-columns: 1fr;
             }
@@ -167,122 +126,74 @@
 <body>
     <div class="container">
         <header>
-            <h1>🎯 HabiThink</h1>
-            <p>Сложная игра, которая расслабляет. Развивай мышление через ежедневные тренировки в разных сферах.</p>
+            <h1>HabiThink</h1>
+            <p>Сложная игра. Если научиться в неё играть — расслабляет.</p>
         </header>
 
         <main class="cards-grid">
-            <!-- Карточка: Алгоритмы -->
             <article class="card">
                 <span class="card-icon">⚡</span>
                 <h2>Алгоритмы</h2>
-                <p>Изучай алгоритмическое мышление через практические задачи. От простых сортировок до сложных структур данных.</p>
+                <p>Задачи на построение алгоритмов и структур данных</p>
                 <div class="card-stats">
-                    <div class="stat">
-                        <div class="stat-value">150+</div>
-                        <div class="stat-label">задач</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">5</div>
-                        <div class="stat-label">уровней</div>
-                    </div>
+                    <span class="stat"><span class="stat-value">150+</span> задач</span>
+                    <span class="stat"><span class="stat-value">5</span> уровней</span>
                 </div>
-                <a href="#" class="card-btn">Начать тренировку</a>
             </article>
 
-            <!-- Карточка: Математика -->
             <article class="card">
                 <span class="card-icon">∑</span>
                 <h2>Математика</h2>
-                <p>Развивай логическое мышление и математическую интуицию. Решение задач от арифметики до высшей математики.</p>
+                <p>От арифметики до математического анализа</p>
                 <div class="card-stats">
-                    <div class="stat">
-                        <div class="stat-value">200+</div>
-                        <div class="stat-label">задач</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">6</div>
-                        <div class="stat-label">уровней</div>
-                    </div>
+                    <span class="stat"><span class="stat-value">200+</span> задач</span>
+                    <span class="stat"><span class="stat-value">6</span> уровней</span>
                 </div>
-                <a href="#" class="card-btn">Начать тренировку</a>
             </article>
 
-            <!-- Карточка: Логика -->
             <article class="card">
                 <span class="card-icon">🧩</span>
                 <h2>Логика</h2>
-                <p>Тренируй способность строить причинно-следственные связи. Логические головоломки и дедуктивные задачи.</p>
+                <p>Головоломки и дедуктивные задачи</p>
                 <div class="card-stats">
-                    <div class="stat">
-                        <div class="stat-value">100+</div>
-                        <div class="stat-label">задач</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">4</div>
-                        <div class="stat-label">уровня</div>
-                    </div>
+                    <span class="stat"><span class="stat-value">100+</span> задач</span>
+                    <span class="stat"><span class="stat-value">4</span> уровня</span>
                 </div>
-                <a href="#" class="card-btn">Начать тренировку</a>
             </article>
 
-            <!-- Карточка: Память -->
             <article class="card">
                 <span class="card-icon">🧠</span>
                 <h2>Память</h2>
-                <p>Улучшай рабочую память и скорость запоминания. Техники мнемотехники и упражнения на концентрацию.</p>
+                <p>Упражнения на запоминание и мнемотехнику</p>
                 <div class="card-stats">
-                    <div class="stat">
-                        <div class="stat-value">80+</div>
-                        <div class="stat-label">упражнений</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">5</div>
-                        <div class="stat-label">уровней</div>
-                    </div>
+                    <span class="stat"><span class="stat-value">80+</span> упражнений</span>
+                    <span class="stat"><span class="stat-value">5</span> уровней</span>
                 </div>
-                <a href="#" class="card-btn">Начать тренировку</a>
             </article>
 
-            <!-- Карточка: Внимание -->
             <article class="card">
                 <span class="card-icon">👁️</span>
                 <h2>Внимание</h2>
-                <p>Развивай концентрацию и избирательность внимания. Упражнения на фокусировку и многозадачность.</p>
+                <p>Тренировка концентрации и фокусировки</p>
                 <div class="card-stats">
-                    <div class="stat">
-                        <div class="stat-value">90+</div>
-                        <div class="stat-label">упражнений</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">4</div>
-                        <div class="stat-label">уровня</div>
-                    </div>
+                    <span class="stat"><span class="stat-value">90+</span> упражнений</span>
+                    <span class="stat"><span class="stat-value">4</span> уровня</span>
                 </div>
-                <a href="#" class="card-btn">Начать тренировку</a>
             </article>
 
-            <!-- Карточка: Креативность -->
             <article class="card">
                 <span class="card-icon">💡</span>
                 <h2>Креативность</h2>
-                <p>Раскрой творческий потенциал через нестандартные задачи. Развитие дивергентного мышления.</p>
+                <p>Нестандартные задачи на творческое мышление</p>
                 <div class="card-stats">
-                    <div class="stat">
-                        <div class="stat-value">120+</div>
-                        <div class="stat-label">задач</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">5</div>
-                        <div class="stat-label">уровней</div>
-                    </div>
+                    <span class="stat"><span class="stat-value">120+</span> задач</span>
+                    <span class="stat"><span class="stat-value">5</span> уровней</span>
                 </div>
-                <a href="#" class="card-btn">Начать тренировку</a>
             </article>
         </main>
 
         <footer>
-            <p>© 2024 HabiThink. Тренируйся каждый день — становись лучше.</p>
+            <p>© 2024 HabiThink</p>
         </footer>
     </div>
 </body>
