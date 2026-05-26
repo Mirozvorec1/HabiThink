@@ -8,23 +8,15 @@
 </head>
 <body>
     <div class="math-game-container">
-        <a href="index.html" class="back-link">← Назад к сферам</a>
+        <a href="index.html" class="back-link">← Назад</a>
         
         <header class="math-header">
             <h1>Математический поток</h1>
-            <p>Бесконечная игра для расслабления и фокуса</p>
+            <p>Просто отвечайте. Сложность растёт сама.</p>
         </header>
-
-        <div class="difficulty-selector">
-            <button class="difficulty-btn" data-difficulty="easy">Лёгкий</button>
-            <button class="difficulty-btn" data-difficulty="medium">Средний</button>
-            <button class="difficulty-btn" data-difficulty="hard">Сложный</button>
-            <button class="difficulty-btn active" data-difficulty="progressive">Прогрессивный</button>
-        </div>
 
         <div class="game-area">
             <div class="game-stats">
-                <span class="game-stat">Уровень: <span class="game-stat-value" id="level">1</span></span>
                 <span class="game-stat">Счёт: <span class="game-stat-value" id="score">0</span></span>
                 <span class="game-stat">Серия: <span class="game-stat-value" id="streak">0</span></span>
             </div>
@@ -33,84 +25,49 @@
                 2 + 3 = ?
             </div>
 
-            <input type="number" class="answer-input" id="answer" placeholder="Ваш ответ" autocomplete="off">
-            <button class="submit-btn" id="submitBtn">Ответить</button>
+            <div class="answer-buttons" id="answerButtons">
+                <!-- Кнопки с вариантами ответов -->
+            </div>
 
             <div class="feedback" id="feedback"></div>
-
-            <div class="progressive-info" id="progressiveInfo" style="display: none;">
-                <strong>Прогрессивный режим:</strong> сложность растёт с каждым правильным ответом. 
-                Ошибка сбрасывает уровень, но не счёт. Расслабьтесь и войдите в поток.
-            </div>
         </div>
     </div>
 
     <script>
         // Состояние игры
         const gameState = {
-            difficulty: 'progressive',
-            level: 1,
             score: 0,
             streak: 0,
-            currentProblem: null,
-            currentAnswer: null
+            currentAnswer: null,
+            difficultyMultiplier: 1
         };
 
         // DOM элементы
         const problemEl = document.getElementById('problem');
-        const answerInput = document.getElementById('answer');
-        const submitBtn = document.getElementById('submitBtn');
+        const answerButtonsEl = document.getElementById('answerButtons');
         const feedbackEl = document.getElementById('feedback');
-        const levelEl = document.getElementById('level');
         const scoreEl = document.getElementById('score');
         const streakEl = document.getElementById('streak');
-        const progressiveInfoEl = document.getElementById('progressiveInfo');
-        const difficultyBtns = document.querySelectorAll('.difficulty-btn');
 
         // Генерация случайного числа в диапазоне
         function randomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-        // Выбор операции
-        function getOperationForLevel(level) {
-            if (level <= 2) return ['+', '-'];
-            if (level <= 4) return ['+', '-', '*'];
-            if (level <= 6) return ['+', '-', '*', '/'];
-            return ['+', '-', '*', '/', '%'];
-        }
-
         // Генерация задачи
         function generateProblem() {
-            const { difficulty, level } = gameState;
+            const { difficultyMultiplier } = gameState;
             
-            let min, max, operations;
+            // Базовые диапазоны, которые растут незаметно
+            const baseMax = 10 * difficultyMultiplier;
+            const min = 1;
+            const max = Math.min(baseMax, 50); // Ограничим максимум
             
-            // Настройка диапазонов в зависимости от сложности
-            switch(difficulty) {
-                case 'easy':
-                    min = 1;
-                    max = 10;
-                    operations = ['+', '-'];
-                    break;
-                case 'medium':
-                    min = 5;
-                    max = 20;
-                    operations = ['+', '-', '*'];
-                    break;
-                case 'hard':
-                    min = 10;
-                    max = 50;
-                    operations = ['+', '-', '*', '/', '%'];
-                    break;
-                case 'progressive':
-                    // Прогрессивная сложность
-                    min = Math.max(1, level * 2);
-                    max = level * 10;
-                    operations = getOperationForLevel(level);
-                    break;
-            }
-
+            // Выбор операции на основе сложности
+            let operations = ['+', '-'];
+            if (difficultyMultiplier >= 2) operations.push('*');
+            if (difficultyMultiplier >= 3) operations.push('/');
+            
             const operation = operations[randomInt(0, operations.length - 1)];
             let num1, num2, answer;
 
@@ -123,23 +80,19 @@
                     break;
                 case '-':
                     num1 = randomInt(min, max);
-                    num2 = randomInt(min, num1); // Чтобы не было отрицательных
+                    num2 = randomInt(min, num1);
                     answer = num1 - num2;
                     break;
                 case '*':
-                    num1 = randomInt(min, Math.min(max, 12)); // Ограничим множители
-                    num2 = randomInt(min, Math.min(max, 12));
+                    const multMax = Math.min(max, 12);
+                    num1 = randomInt(min, multMax);
+                    num2 = randomInt(min, multMax);
                     answer = num1 * num2;
                     break;
                 case '/':
                     num2 = randomInt(min, Math.min(max, 10));
                     answer = randomInt(min, Math.min(max, 10));
-                    num1 = num2 * answer; // Чтобы деление было без остатка
-                    break;
-                case '%':
-                    num1 = randomInt(10, max);
-                    num2 = randomInt(2, 10);
-                    answer = num1 % num2;
+                    num1 = num2 * answer;
                     break;
             }
 
@@ -148,51 +101,67 @@
             if (operation === '*') displayOp = '×';
             if (operation === '/') displayOp = '÷';
 
-            gameState.currentProblem = `${num1} ${displayOp} ${num2}`;
             gameState.currentAnswer = answer;
             
-            problemEl.textContent = `${gameState.currentProblem} = ?`;
+            problemEl.textContent = `${num1} ${displayOp} ${num2} = ?`;
+            
+            generateAnswerButtons(answer);
+        }
+
+        // Генерация кнопок с ответами
+        function generateAnswerButtons(correctAnswer) {
+            answerButtonsEl.innerHTML = '';
+            
+            // Создаём массив ответов (1 правильный + 3 неправильных)
+            const answers = new Set();
+            answers.add(correctAnswer);
+            
+            while (answers.size < 4) {
+                const offset = randomInt(-10, 10);
+                const wrongAnswer = correctAnswer + offset;
+                if (wrongAnswer !== correctAnswer && wrongAnswer > 0) {
+                    answers.add(wrongAnswer);
+                }
+            }
+            
+            // Перемешиваем ответы
+            const shuffledAnswers = Array.from(answers).sort(() => Math.random() - 0.5);
+            
+            // Создаём кнопки
+            shuffledAnswers.forEach(answer => {
+                const button = document.createElement('button');
+                button.className = 'answer-btn';
+                button.textContent = answer;
+                button.addEventListener('click', () => checkAnswer(answer));
+                answerButtonsEl.appendChild(button);
+            });
         }
 
         // Проверка ответа
-        function checkAnswer() {
-            const userAnswer = parseInt(answerInput.value);
-            
-            if (isNaN(userAnswer)) {
-                showFeedback('Введите число', 'incorrect');
-                return;
-            }
-
+        function checkAnswer(userAnswer) {
             if (userAnswer === gameState.currentAnswer) {
                 // Правильный ответ
-                gameState.score += 10 * gameState.level;
+                gameState.score += 10;
                 gameState.streak++;
                 
-                if (gameState.difficulty === 'progressive') {
-                    gameState.level = Math.floor(gameState.streak / 5) + 1;
-                }
+                // Незаметное повышение сложности каждые 5 правильных ответов
+                gameState.difficultyMultiplier = Math.floor(gameState.streak / 5) + 1;
                 
-                showFeedback(`Правильно! +${10 * gameState.level} очков`, 'correct');
+                showFeedback('Верно', 'correct');
                 setTimeout(() => {
                     hideFeedback();
                     generateProblem();
-                    answerInput.value = '';
-                    answerInput.focus();
-                }, 800);
+                }, 600);
             } else {
                 // Неправильный ответ
                 gameState.streak = 0;
-                if (gameState.difficulty === 'progressive') {
-                    gameState.level = 1;
-                }
+                gameState.difficultyMultiplier = 1;
                 
-                showFeedback(`Неверно. Правильный ответ: ${gameState.currentAnswer}`, 'incorrect');
+                showFeedback(`Правильный ответ: ${gameState.currentAnswer}`, 'incorrect');
                 setTimeout(() => {
                     hideFeedback();
                     generateProblem();
-                    answerInput.value = '';
-                    answerInput.focus();
-                }, 1500);
+                }, 1000);
             }
 
             updateStats();
@@ -200,7 +169,6 @@
 
         // Обновление статистики
         function updateStats() {
-            levelEl.textContent = gameState.level;
             scoreEl.textContent = gameState.score;
             streakEl.textContent = gameState.streak;
         }
@@ -216,44 +184,8 @@
             feedbackEl.className = 'feedback';
         }
 
-        // Смена сложности
-        function setDifficulty(difficulty) {
-            gameState.difficulty = difficulty;
-            gameState.level = 1;
-            gameState.score = 0;
-            gameState.streak = 0;
-            
-            // Обновление активных кнопок
-            difficultyBtns.forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.difficulty === difficulty);
-            });
-
-            // Показ информации о прогрессивном режиме
-            progressiveInfoEl.style.display = difficulty === 'progressive' ? 'block' : 'none';
-
-            updateStats();
-            generateProblem();
-            answerInput.value = '';
-            answerInput.focus();
-        }
-
-        // Обработчики событий
-        submitBtn.addEventListener('click', checkAnswer);
-
-        answerInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                checkAnswer();
-            }
-        });
-
-        difficultyBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                setDifficulty(btn.dataset.difficulty);
-            });
-        });
-
         // Инициализация игры
-        setDifficulty('progressive');
+        generateProblem();
     </script>
 </body>
 </html>

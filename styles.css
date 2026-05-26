@@ -38,7 +38,7 @@ header p {
     margin: 0 auto;
 }
 
-.cards-grid {
+.grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
@@ -60,6 +60,15 @@ header p {
     border-color: #1a1a1a;
 }
 
+.card.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.card.disabled:hover {
+    border-color: #e5e5e5;
+}
+
 .card-icon {
     font-size: 1.8rem;
     margin-bottom: 16px;
@@ -73,7 +82,7 @@ header p {
     color: #1a1a1a;
 }
 
-.card p {
+.card-desc {
     color: #666;
     font-size: 0.9rem;
     line-height: 1.5;
@@ -83,18 +92,8 @@ header p {
     margin-top: 20px;
     padding-top: 16px;
     border-top: 1px solid #f0f0f0;
-    display: flex;
-    gap: 24px;
-}
-
-.stat {
     font-size: 0.85rem;
     color: #888;
-}
-
-.stat-value {
-    font-weight: 500;
-    color: #1a1a1a;
 }
 
 footer {
@@ -115,7 +114,7 @@ footer {
         font-size: 1.75rem;
     }
 
-    .cards-grid {
+    .grid {
         grid-template-columns: 1fr;
     }
 }
@@ -143,34 +142,6 @@ footer {
     font-size: 0.9rem;
 }
 
-.difficulty-selector {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.difficulty-btn {
-    padding: 10px 20px;
-    border: 1px solid #e5e5e5;
-    background: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.15s ease;
-}
-
-.difficulty-btn:hover {
-    border-color: #1a1a1a;
-}
-
-.difficulty-btn.active {
-    background: #1a1a1a;
-    color: #fff;
-    border-color: #1a1a1a;
-}
-
 .game-area {
     background: #fff;
     border: 1px solid #e5e5e5;
@@ -181,7 +152,8 @@ footer {
 
 .game-stats {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 30px;
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 1px solid #f0f0f0;
@@ -205,35 +177,32 @@ footer {
     letter-spacing: -1px;
 }
 
-.answer-input {
-    width: 100%;
-    padding: 12px;
+.answer-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.answer-btn {
+    padding: 16px;
     border: 1px solid #e5e5e5;
+    background: #fff;
     border-radius: 4px;
+    cursor: pointer;
     font-size: 1.25rem;
-    text-align: center;
-    margin-bottom: 16px;
-    outline: none;
+    transition: all 0.15s ease;
 }
 
-.answer-input:focus {
+.answer-btn:hover {
     border-color: #1a1a1a;
+    background: #fafafa;
 }
 
-.submit-btn {
-    width: 100%;
-    padding: 12px;
+.answer-btn:active {
     background: #1a1a1a;
     color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: opacity 0.15s ease;
-}
-
-.submit-btn:hover {
-    opacity: 0.8;
+    border-color: #1a1a1a;
 }
 
 .feedback {
@@ -254,15 +223,6 @@ footer {
     background: #fef2f2;
     color: #991b1b;
     display: block;
-}
-
-.progressive-info {
-    margin-top: 20px;
-    padding: 16px;
-    background: #f9f9f9;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    color: #666;
 }
 
 .back-link {
@@ -286,11 +246,7 @@ footer {
         font-size: 2rem;
     }
 
-    .difficulty-selector {
-        flex-direction: column;
-    }
-
-    .difficulty-btn {
-        width: 100%;
+    .answer-buttons {
+        grid-template-columns: 1fr;
     }
 }
